@@ -1,0 +1,1394 @@
+openapi: 3.0.3
+info:
+  title: TecnoMarket Perú API
+  version: 1.0.0
+  description: API RESTful para E-commerce con Django REST Framework
+paths:
+  /api/carrito/:
+    get:
+      operationId: carrito_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - carrito
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCarritoList'
+          description: ''
+    post:
+      operationId: carrito_create
+      tags:
+      - carrito
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carrito'
+          description: ''
+  /api/carrito/{id}/:
+    get:
+      operationId: carrito_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este carrito.
+        required: true
+      tags:
+      - carrito
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carrito'
+          description: ''
+    put:
+      operationId: carrito_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este carrito.
+        required: true
+      tags:
+      - carrito
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Carrito'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carrito'
+          description: ''
+    patch:
+      operationId: carrito_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este carrito.
+        required: true
+      tags:
+      - carrito
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCarrito'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCarrito'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCarrito'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carrito'
+          description: ''
+    delete:
+      operationId: carrito_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este carrito.
+        required: true
+      tags:
+      - carrito
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ordenes/:
+    get:
+      operationId: ordenes_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - ordenes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrdenList'
+          description: ''
+    post:
+      operationId: ordenes_create
+      tags:
+      - ordenes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Orden'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Orden'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Orden'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orden'
+          description: ''
+  /api/ordenes/{id}/:
+    get:
+      operationId: ordenes_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Orden.
+        required: true
+      tags:
+      - ordenes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orden'
+          description: ''
+    put:
+      operationId: ordenes_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Orden.
+        required: true
+      tags:
+      - ordenes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Orden'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Orden'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Orden'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orden'
+          description: ''
+    patch:
+      operationId: ordenes_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Orden.
+        required: true
+      tags:
+      - ordenes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrden'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOrden'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrden'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orden'
+          description: ''
+    delete:
+      operationId: ordenes_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Orden.
+        required: true
+      tags:
+      - ordenes
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/productos/:
+    get:
+      operationId: productos_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - productos
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductoList'
+          description: ''
+    post:
+      operationId: productos_create
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Producto'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+  /api/productos/{id}/:
+    get:
+      operationId: productos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Producto.
+        required: true
+      tags:
+      - productos
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    put:
+      operationId: productos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Producto.
+        required: true
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Producto'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    patch:
+      operationId: productos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Producto.
+        required: true
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    delete:
+      operationId: productos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Producto.
+        required: true
+      tags:
+      - productos
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/productos/{id}/resenas/:
+    get:
+      operationId: productos_resenas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Producto.
+        required: true
+      tags:
+      - productos
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+  /api/resenas/:
+    get:
+      operationId: resenas_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - resenas
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResenaList'
+          description: ''
+    post:
+      operationId: resenas_create
+      tags:
+      - resenas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Resena'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Resena'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+          description: ''
+  /api/resenas/{id}/:
+    get:
+      operationId: resenas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Reseña.
+        required: true
+      tags:
+      - resenas
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+          description: ''
+    put:
+      operationId: resenas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Reseña.
+        required: true
+      tags:
+      - resenas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Resena'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Resena'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+          description: ''
+    patch:
+      operationId: resenas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Reseña.
+        required: true
+      tags:
+      - resenas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedResena'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedResena'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedResena'
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+          description: ''
+    delete:
+      operationId: resenas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este Reseña.
+        required: true
+      tags:
+      - resenas
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/usuarios/:
+    get:
+      operationId: usuarios_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - usuarios
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginated_UsuarioPublicoList'
+          description: ''
+  /api/usuarios/{id}/:
+    get:
+      operationId: usuarios_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este usuario.
+        required: true
+      tags:
+      - usuarios
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_UsuarioPublico'
+          description: ''
+components:
+  schemas:
+    Carrito:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        activo:
+          type: boolean
+        cupon:
+          type: integer
+          nullable: true
+        cupon_codigo:
+          type: string
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCarrito'
+          readOnly: true
+        cantidad_items:
+          type: integer
+          readOnly: true
+        subtotal:
+          type: string
+          readOnly: true
+        impuestos:
+          type: string
+          readOnly: true
+        total:
+          type: string
+          readOnly: true
+        total_con_descuento:
+          type: string
+          readOnly: true
+        actualizado_en:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - actualizado_en
+      - cantidad_items
+      - cupon_codigo
+      - id
+      - impuestos
+      - items
+      - subtotal
+      - total
+      - total_con_descuento
+      - usuario
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 120
+        descripcion:
+          type: string
+        imagen:
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 200
+          - type: string
+            maxLength: 0
+      required:
+      - id
+      - nombre
+    EstadoEnum:
+      enum:
+      - pendiente
+      - pagada
+      - enviada
+      - entregada
+      - cancelada
+      type: string
+      description: |-
+        * `pendiente` - Pendiente
+        * `pagada` - Pagada
+        * `enviada` - Enviada
+        * `entregada` - Entregada
+        * `cancelada` - Cancelada
+    ItemCarrito:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        producto:
+          type: integer
+        producto_sku:
+          type: string
+          readOnly: true
+        producto_nombre:
+          type: string
+          readOnly: true
+        precio_unitario:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        cantidad:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        subtotal_item:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - precio_unitario
+      - producto
+      - producto_nombre
+      - producto_sku
+      - subtotal_item
+    Orden:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdenItemSnapshot'
+          readOnly: true
+        direccion_envio:
+          type: string
+        metodo_pago:
+          type: string
+          maxLength: 60
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        numero_seguimiento:
+          type: string
+          readOnly: true
+          nullable: true
+        tiempo_estimado_entrega:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - direccion_envio
+      - fecha_creacion
+      - id
+      - items
+      - metodo_pago
+      - numero_seguimiento
+      - tiempo_estimado_entrega
+      - total
+      - usuario
+    OrdenItemSnapshot:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        producto:
+          type: integer
+          readOnly: true
+        producto_sku:
+          type: string
+          readOnly: true
+        producto_nombre:
+          type: string
+          readOnly: true
+        cantidad:
+          type: integer
+          readOnly: true
+        precio_unitario:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          readOnly: true
+        subtotal:
+          type: string
+          readOnly: true
+      required:
+      - cantidad
+      - id
+      - precio_unitario
+      - producto
+      - producto_nombre
+      - producto_sku
+      - subtotal
+    PaginatedCarritoList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Carrito'
+    PaginatedOrdenList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Orden'
+    PaginatedProductoList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Producto'
+    PaginatedResenaList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resena'
+    Paginated_UsuarioPublicoList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/_UsuarioPublico'
+    PatchedCarrito:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        activo:
+          type: boolean
+        cupon:
+          type: integer
+          nullable: true
+        cupon_codigo:
+          type: string
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCarrito'
+          readOnly: true
+        cantidad_items:
+          type: integer
+          readOnly: true
+        subtotal:
+          type: string
+          readOnly: true
+        impuestos:
+          type: string
+          readOnly: true
+        total:
+          type: string
+          readOnly: true
+        total_con_descuento:
+          type: string
+          readOnly: true
+        actualizado_en:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedOrden:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrdenItemSnapshot'
+          readOnly: true
+        direccion_envio:
+          type: string
+        metodo_pago:
+          type: string
+          maxLength: 60
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        numero_seguimiento:
+          type: string
+          readOnly: true
+          nullable: true
+        tiempo_estimado_entrega:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProducto:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        resenas_url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        sku:
+          type: string
+          maxLength: 40
+        nombre:
+          type: string
+          maxLength: 200
+        descripcion:
+          type: string
+        marca:
+          type: string
+          maxLength: 100
+        categoria:
+          allOf:
+          - $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categoria_id:
+          type: integer
+          writeOnly: true
+        vendedor:
+          type: string
+          format: uri
+          readOnly: true
+        precio:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        descuento_porcentaje:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        precio_con_descuento:
+          type: string
+          readOnly: true
+        stock:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        disponible:
+          type: boolean
+          readOnly: true
+        rating_promedio:
+          type: number
+          format: double
+          readOnly: true
+        imagenes: {}
+        especificaciones_tecnicas: {}
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedResena:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        usuario_username:
+          type: string
+          readOnly: true
+        producto:
+          type: integer
+        calificacion:
+          type: integer
+          maximum: 5
+          minimum: 1
+        titulo:
+          type: string
+          maxLength: 150
+        comentario:
+          type: string
+        es_compra_verificada:
+          type: boolean
+          readOnly: true
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+    Producto:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        resenas_url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        sku:
+          type: string
+          maxLength: 40
+        nombre:
+          type: string
+          maxLength: 200
+        descripcion:
+          type: string
+        marca:
+          type: string
+          maxLength: 100
+        categoria:
+          allOf:
+          - $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categoria_id:
+          type: integer
+          writeOnly: true
+        vendedor:
+          type: string
+          format: uri
+          readOnly: true
+        precio:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        descuento_porcentaje:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        precio_con_descuento:
+          type: string
+          readOnly: true
+        stock:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        disponible:
+          type: boolean
+          readOnly: true
+        rating_promedio:
+          type: number
+          format: double
+          readOnly: true
+        imagenes: {}
+        especificaciones_tecnicas: {}
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - categoria
+      - categoria_id
+      - descripcion
+      - disponible
+      - fecha_creacion
+      - id
+      - marca
+      - nombre
+      - precio
+      - precio_con_descuento
+      - rating_promedio
+      - resenas_url
+      - sku
+      - url
+      - vendedor
+    Resena:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          readOnly: true
+        usuario_username:
+          type: string
+          readOnly: true
+        producto:
+          type: integer
+        calificacion:
+          type: integer
+          maximum: 5
+          minimum: 1
+        titulo:
+          type: string
+          maxLength: 150
+        comentario:
+          type: string
+        es_compra_verificada:
+          type: boolean
+          readOnly: true
+        fecha_creacion:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - calificacion
+      - comentario
+      - es_compra_verificada
+      - fecha_creacion
+      - id
+      - producto
+      - titulo
+      - usuario
+      - usuario_username
+    _UsuarioPublico:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nombre de usuario
+          description: 'Requerido. 150 carácteres como máximo. Únicamente letras,
+            dígitos y @/./+/-/_ '
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          title: Nombre
+          maxLength: 150
+        last_name:
+          type: string
+          title: Apellidos
+          maxLength: 150
+      required:
+      - id
+      - username
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
